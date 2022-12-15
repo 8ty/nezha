@@ -1,0 +1,19 @@
+version: '3'
+services:
+  nezha-agent:
+    image: whoer/nezha-agent
+    container_name: nezha-agent
+    volumes:
+      - /data:/data
+    ports:
+      - 80:80
+      - 5555:5555
+    restart: unless-stopped
+    network_mode: host
+    command: -s ${NZ_GRPC_URL} -p ${NZ_CLENT_SECRET}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+        compress: "true"
